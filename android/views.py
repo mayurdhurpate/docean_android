@@ -57,7 +57,7 @@ def message_receive(request):
 def contacts_data(request):
     if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
         data = {"contacts":[],"action":"fetch_contacts"}
-        users = User.objects.all().order_by('username')
+        users = User.objects.all().order_by('user')
         for user in users:
             user_dict = {}
             user_dict["name"] = user.name
