@@ -48,6 +48,7 @@ def message_receive(request):
         data = home("Broadcast Message",msg.message)
         msg.message_id = data['multicast_id']
         msg.save()
+        data["action"]="broadcast_msg"
         return HttpResponse(json.dumps(data), content_type='application/json')
     else:
         return HttpResponse("Validation Failed")
@@ -55,7 +56,7 @@ def message_receive(request):
 @csrf_exempt
 def contacts_data(request):
     if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
-        data = {"contacts":[]}
+        data = {"contacts":[],"action":"fetch_contacts"}
         users = User.objects.all().order_by('username')
         for user in users:
             user_dict = {}
@@ -68,7 +69,7 @@ def contacts_data(request):
 @csrf_exempt
 def message_data(request):
     if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
-        data = {"messages":[]}
+        data = {"messages":[],"action":"fetch_messages"}
         messages = Message.objects.all()
         for message in messages:
             msg_dict = {}
