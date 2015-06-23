@@ -32,7 +32,7 @@ def register(request):
 		u.name = request.POST["name"]
 		u.token = request.POST["token"]
 		u.save()
-		return HttpResponse("User Registered")
+		return HttpResponse(json.dumps("User Registered"))
 	else:
 		return HttpResponse("Validation Failed")
 
@@ -47,7 +47,7 @@ def message_receive(request):
         data = home("Broadcast Message",msg.message)
         msg.message_id = data['multicast_id']
         msg.save()
-        return HttpResponse(json.dumps(data))
+        return HttpResponse(json.dumps(data), content_type='application/json')
     else:
         return HttpResponse("Validation Failed")
 
@@ -60,7 +60,7 @@ def contacts_data(request):
             user_dict = {}
             user_dict["name"] = user.name
             data["contacts"].append(user_dict)
-        return HttpResponse(json.dumps(data))
+        return HttpResponse(json.dumps(data), content_type='application/json')
     else:
         return HttpResponse("Validation Failed")
 
@@ -74,7 +74,7 @@ def message_data(request):
             msg_dict["sender"] = message.sender
             msg_dict["message"] = message.message
             data["messages"].append(msg_dict)
-        return HttpResponse(json.dumps(data))
+        return HttpResponse(json.dumps(data), content_type='application/json')
     else:
         return HttpResponse("Validation Failed")
 
