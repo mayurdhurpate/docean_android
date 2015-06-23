@@ -38,7 +38,7 @@ def register(request):
 
 
 @csrf_exempt
-def message_recieve(request):
+def message_receive(request):
     if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
         msg = Message()
         msg.sender = request.POST['username']
