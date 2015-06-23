@@ -20,4 +20,5 @@ class Noti(models.Model):
 class Message(models.Model):
     sender = models.CharField(max_length=100)
     message = models.CharField(max_length=1000)
-    sender_id = models.CharField(max_length=1000)
+    token = models.CharField(max_length=1000)
+    message_id = models.CharField(max_length=1000,null=True,blank=True)
