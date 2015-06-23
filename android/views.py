@@ -23,7 +23,7 @@ def home(title,text):
     print payload
     print headers
     r = requests.post(url, data=json.dumps(payload), headers=headers)
-    print r.content
+    return json.loads(r.content)
 
 @csrf_exempt
 def register(request):
@@ -44,5 +44,7 @@ def message_receive(request):
         msg.sender = request.POST['username']
         msg.message = request.POST['bmsg']
         msg.sender_id = request.POST['token']
+        data = home("Broadcast Message",msg.message)
+        msg.message_id = data['multicast_id']
         msg.save()
-        return HttpResponse("message_recieved")
+        return HttpResponse(json.dumps(data))
