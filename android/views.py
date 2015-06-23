@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-def home():
+def home(title,text):
     uids = []
     users = User.objects.all().order_by('-id')
     for user in users:
@@ -17,7 +17,7 @@ def home():
     notis = Noti.objects.all().order_by('-id')
     noti = notis[0]
     url = 'https://gcm-http.googleapis.com/gcm/send'
-    payload = { "notification": {"title": "Jaldi karna","icon":"@drawable/myicon","text": "App chalana"},"to" : users[0].token}
+    payload = { "notification": {"title": title:"@drawable/myicon",text: "App chalana"},"registration_ids" : uids}
     headers = {'content-type': 'application/json','Authorization':'key='+noti.api_key}
     
     print payload
