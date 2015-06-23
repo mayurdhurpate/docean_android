@@ -45,4 +45,4 @@ def message_recieve(request):
         msg.message = request.POST['bmsg']
         msg.sender_id = request.POST['token']
         msg.save()
-        return Http
+        return HttpResponse("message_recieved")
