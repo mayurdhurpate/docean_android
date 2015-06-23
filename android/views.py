@@ -48,3 +48,35 @@ def message_receive(request):
         msg.message_id = data['multicast_id']
         msg.save()
         return HttpResponse(json.dumps(data))
+    else:
+        return HttpResponse("Validation Failed")
+
+@csrf_exempt
+def contacts_data(request):
+    if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
+        data = {"contacts":[]}
+        users = User.objects.all().order_by('username')
+        for user in users:
+            user_dict = {}
+            user_dict["name"] = user.name
+            data["contacts"].append(user_dict)
+        return HttpResponse(json.dumps(data))
+    else:
+        return HttpResponse("Validation Failed")
+
+@csrf_exempt
+def message_data(request):
+    if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
+        data = {"messages":[]}
+        messages = Message.objects.all()
+        for message in messages:
+            msg_dict = {}
+            msg_dict["sender"] = message.sender
+            msg_dict["message"] = message.message
+            data["messages"].append(msg_dict)
+        return HttpResponse(json.dumps(data))
+    else:
+        return HttpResponse("Validation Failed")
+
+
+
