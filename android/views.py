@@ -17,7 +17,7 @@ def home(title,text):
     notis = Noti.objects.all().order_by('-id')
     noti = notis[0]
     url = 'https://gcm-http.googleapis.com/gcm/send'
-    payload = { "notification": {"title": title:"@drawable/myicon",text: "App chalana"},"registration_ids" : uids}
+    payload = { "notification": {"title": title,"icon":"@drawable/myicon",text: "App chalana"},"registration_ids" : uids}
     headers = {'content-type': 'application/json','Authorization':'key='+noti.api_key}
     
     print payload
