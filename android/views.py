@@ -17,7 +17,8 @@ def home(title,text):
     notis = Noti.objects.all().order_by('-id')
     noti = notis[0]
     url = 'https://gcm-http.googleapis.com/gcm/send'
-    payload = { "notification": {"title": title,"icon":"@drawable/myicon","text": text},"registration_ids" : uids}
+    #payload = { "notification": {"title": title,"icon":"@drawable/myicon","text": text,"click_action":"MAIN"},"registration_ids" : uids}
+    payload = {"data":{"message1":text},"registration_ids":uids}
     headers = {'content-type': 'application/json','Authorization':'key='+noti.api_key}
     
     print payload
@@ -43,7 +44,7 @@ def message_receive(request):
         msg = Message()
         msg.sender = request.POST['username']
         msg.message = request.POST['bmsg']
-        msg.sender_id = request.POST['token']
+        msg.sender_id = "null"
         data = home("Broadcast Message",msg.message)
         msg.message_id = data['multicast_id']
         msg.save()
