@@ -7,7 +7,7 @@ class User(models.Model):
 	email=models.CharField(unique=True,max_length=100)
 	phone_no=models.CharField(max_length=20,null=True,blank=True)
 	image_url=models.CharField(max_length=100,null=True,blank=True)
-	google_id=models.CharField(max_length=100)
+	social_id=models.CharField(max_length=100)
 	role=models.CharField(max_length=100,null=True,blank=True)
 	def __str__(self):
 		return "%s %s" % (self.name,self.email)
