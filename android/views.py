@@ -32,6 +32,11 @@ def register(request):
 		u = User()
 		u.name = request.POST["name"]
 		u.token = request.POST["token"]
+        u.email = request.POST["email"]
+        u.phone_no = request.POST["phone_no"]
+        u.image_url = request.POST["image_url"]
+        u.social_id = request.POST["social_id"]
+        u.role = ""
 		u.save()
 		return HttpResponse(json.dumps("User Registered"))
 	else:
@@ -41,12 +46,15 @@ def register(request):
 @csrf_exempt
 def message_receive(request):
     if request.method == 'POST' and request.POST['passkey'] == 'hellolastry':
+        try:
+            x = User.objects.get(token=request.POST["token"])
+        except:
+            return HttpResponse("User not Registered")
         msg = Message()
         msg.sender = request.POST['username']
         msg.message = request.POST['bmsg']
-        msg.sender_id = "null"
-	msg.title = request.POST['bmsg_title']
-        data = home(msg.title,msg.message,msg.sender)
+        msg.token = request.POST["token"]
+        data = home("Broadcast Message",msg.message)
         msg.message_id = data['multicast_id']
         msg.save()
         data["action"]="broadcast_msg"
