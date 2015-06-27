@@ -28,19 +28,19 @@ def home(title,text,sender):
 
 @csrf_exempt
 def register(request):
-	if request.method == "POST" and request.POST['passkey'] == "hellolastry":
-		u = User()
-		u.name = request.POST["name"]
-		u.token = request.POST["token"]
+    if request.method == "POST" and request.POST['passkey'] == "hellolastry":
+        u = User()
+        u.name = request.POST["name"]
+        u.token = request.POST["token"]
         u.email = request.POST["email"]
         u.phone_no = request.POST["phone_no"]
         u.image_url = request.POST["image_url"]
         u.social_id = request.POST["social_id"]
         u.role = ""
-		u.save()
-		return HttpResponse(json.dumps("User Registered"))
-	else:
-		return HttpResponse("Validation Failed")
+        u.save()
+        return HttpResponse(json.dumps("User Registered"))
+    else:
+        return HttpResponse("Validation Failed")
 
 
 @csrf_exempt
