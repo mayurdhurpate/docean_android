@@ -38,7 +38,7 @@ def register(request):
         u.social_id = request.POST["social_id"]
         u.role = ""
         u.save()
-        return HttpResponse(json.dumps("User Registered"))
+        return HttpResponse("User Registered")
     else:
         return HttpResponse("Validation Failed")
 
